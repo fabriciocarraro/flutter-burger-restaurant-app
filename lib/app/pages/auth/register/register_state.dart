@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:match/match.dart';
 
 part 'register_state.g.dart';
@@ -10,16 +11,19 @@ enum RegisterStatus{
   error
 }
 
-class RegisterState {
+class RegisterState extends Equatable{
   final RegisterStatus status;
 
-  RegisterState({required this.status});
+  const RegisterState({required this.status});
 
-  RegisterState.initial() : status = RegisterStatus.initial;
+  const RegisterState.initial() : status = RegisterStatus.initial;
 
   RegisterState copyWith({
   RegisterStatus? status,
     }){
     return RegisterState(status: status ?? this.status);
   }
+
+  @override
+  List<Object?> get props => [status];
 }

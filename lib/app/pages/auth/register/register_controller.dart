@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter_burger_restaurant_app/app/pages/auth/register/register_state.dart';
 import '../../../repositories/auth/auth_repository.dart';

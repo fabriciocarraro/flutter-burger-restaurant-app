@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<AuthModel> login(String email, String password) async {
     try {
-      final result = await dio.unauth().post('/auth/', data: {
+      final result = await dio.unauth().post('/auth', data: {
         'email': email,
         'password': password,
       });
@@ -36,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> register(String name, String email, String password) async {
     try {
-      await dio.unauth().post('/users/', data: {
+      await dio.unauth().post('/users', data: {
         'name': name,
         'email': email,
         'password': password,
