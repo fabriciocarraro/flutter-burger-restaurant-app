@@ -12,6 +12,10 @@ enum OrderStatus {
   loading,
   loaded,
   error,
+  updateOrder,
+  confirmRemoveProduct,
+  emptyBag,
+  success,
 }
 
 class OrderState extends Equatable {
@@ -32,13 +36,18 @@ class OrderState extends Equatable {
         paymentTypes = const [],
         errorMessage = null;
 
+  double get totalOrderValue => orderProducts.fold(
+      0.0, (previousValue, element) => previousValue + element.totalPrice);
+
   @override
-  List<Object?> get props => [status, orderProducts, paymentTypes, errorMessage];
+  List<Object?> get props =>
+      [status, orderProducts, paymentTypes, errorMessage];
 
   OrderState copyWith(
       {OrderStatus? status,
       List<OrderProductDTO>? orderProducts,
-      List<PaymentTypeModel>? paymentTypes, String? errorMessage}) {
+      List<PaymentTypeModel>? paymentTypes,
+      String? errorMessage}) {
     return OrderState(
       status: status ?? this.status,
       orderProducts: orderProducts ?? this.orderProducts,
@@ -46,4 +55,18 @@ class OrderState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
+}
+
+class OrderConfirmDeleteProductState extends OrderState {
+  final OrderProductDTO orderProduct;
+  final int index;
+
+  const OrderConfirmDeleteProductState({
+    required this.orderProduct,
+    required this.index,
+    required super.status,
+    required super.orderProducts,
+    required super.paymentTypes,
+    super.errorMessage,
+  });
 }

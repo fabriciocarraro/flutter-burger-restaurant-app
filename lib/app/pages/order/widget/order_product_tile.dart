@@ -4,6 +4,8 @@ import 'package:flutter_burger_restaurant_app/app/core/ui/styles/colors_app.dart
 import 'package:flutter_burger_restaurant_app/app/core/ui/styles/text_styles.dart';
 import 'package:flutter_burger_restaurant_app/app/core/ui/widgets/delivery_increment_decrement_button.dart';
 import 'package:flutter_burger_restaurant_app/app/dto/order_product_dto.dart';
+import 'package:flutter_burger_restaurant_app/app/pages/order/order_controller.dart';
+import 'package:provider/provider.dart';
 
 class OrderProductTile extends StatelessWidget {
   final int index;
@@ -33,7 +35,8 @@ class OrderProductTile extends StatelessWidget {
                 children: [
                   Text(
                     product.name,
-                    style: context.textStyles.textRegular.copyWith(fontSize: 16),
+                    style:
+                        context.textStyles.textRegular.copyWith(fontSize: 16),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +47,17 @@ class OrderProductTile extends StatelessWidget {
                             fontSize: 14, color: context.colors.secondary),
                       ),
                       DeliveryIncrementDecrementButton.compact(
-                          amount: 1, incrementTap: () {}, decrementTap: () {}),
+                          amount: orderProduct.amount,
+                          incrementTap: () {
+                            context
+                                .read<OrderController>()
+                                .incrementProduct(index);
+                          },
+                          decrementTap: () {
+                            context
+                                .read<OrderController>()
+                                .decrementProduct(index);
+                          }),
                     ],
                   ),
                 ],

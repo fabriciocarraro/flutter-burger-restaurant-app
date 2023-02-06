@@ -44,4 +44,8 @@ class HomeController extends Cubit<HomeState> {
     }
     emit(state.copyWith(shoppingBag: shoppingBag));
   }
+
+  void updateBag(List<OrderProductDTO> updatedBag) {
+    emit(state.copyWith(shoppingBag: updatedBag));
+  }
 }
