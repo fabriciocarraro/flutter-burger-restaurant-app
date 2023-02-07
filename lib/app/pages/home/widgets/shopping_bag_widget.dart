@@ -25,7 +25,9 @@ class ShoppingBagWidget extends StatelessWidget {
       }
     }
     final updatedBag = await navigator.pushNamed('/order', arguments: bag);
-    controller.updateBag(updatedBag as List<OrderProductDTO>);
+    if(updatedBag != null){
+      controller.updateBag(updatedBag as List<OrderProductDTO>);
+    }
   }
 
   @override
